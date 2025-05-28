@@ -25,6 +25,9 @@ const sharedItemSchema = new Schema({
         type: Buffer, 
         default: null
     },
+    item_iv: { type: Buffer, default: null }, 
+    wrapped_key_iv: { type: Buffer, default: null },
+
     shared_at: {
         type: Date,
         default: Date.now
@@ -40,7 +43,8 @@ const sharedItemSchema = new Schema({
     expiration_at: { // Deadline for receiver to accept
         type: Date,
         required: true // set programmatically
-    }
+    },
+    
 });
 
 // CHECK UNIQUE constraint
