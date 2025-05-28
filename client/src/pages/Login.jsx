@@ -17,7 +17,7 @@ export default function Login() {
     // check out login if user is logged in
     useEffect(() => {
         if (user) {
-            navigate('/dashboard'); 
+            navigate('/login'); 
         }
     }, [user, navigate]);
 
@@ -34,7 +34,7 @@ export default function Login() {
                 setUser(profileRes.data);
                 toast.success("Login successful!");
                 setData({ email: '', password: '' });
-                navigate('/gameboard');
+                navigate('/dashboard'); 
             }
         } catch (error) {
             console.error(error);

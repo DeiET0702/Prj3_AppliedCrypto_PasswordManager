@@ -18,7 +18,7 @@ export default function Register() {
     // check out login if user is logged in
     useEffect(() => {
         if (user) {
-            navigate('/gameboard');
+            navigate('/login');
         }
     }, [user, navigate]);
 
