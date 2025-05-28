@@ -17,7 +17,7 @@ export default function Login() {
     // check out login if user is logged in
     useEffect(() => {
         if (user) {
-            navigate('/gameboard'); 
+            navigate('/dashboard'); 
         }
     }, [user, navigate]);
 
