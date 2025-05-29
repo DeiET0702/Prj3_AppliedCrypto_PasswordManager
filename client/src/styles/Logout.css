@@ -1,0 +1,67 @@
+/* Logout button style */
+.logout-button {
+  background-color: #ff6f61; /* màu đỏ cam */
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: 600;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.logout-button:hover {
+  background-color: #e85c4f;
+}
+
+/* SweetAlert2 custom styles */
+.swal-popup {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 12px !important;
+  padding: 30px !important;
+}
+
+.swal-title {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  color: #333 !important;
+  margin-bottom: 12px !important;
+}
+
+.swal-content {
+  font-size: 1.1rem !important;
+  color: #555 !important;
+  margin-bottom: 20px !important;
+}
+
+.swal-confirm-button {
+  background-color: #ff6f61 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 10px 24px !important;
+  font-weight: 700 !important;
+  box-shadow: 0 3px 8px rgba(255, 111, 97, 0.6) !important;
+  transition: background-color 0.3s ease !important;
+}
+
+.swal-confirm-button:hover {
+  background-color: #e85c4f !important;
+}
+
+.swal-cancel-button {
+  background-color: #4caf50 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 10px 24px !important;
+  font-weight: 700 !important;
+  box-shadow: 0 3px 8px rgba(76, 175, 80, 0.6) !important;
+  transition: background-color 0.3s ease !important;
+}
+
+.swal-cancel-button:hover {
+  background-color: #388e3c !important;
+}
