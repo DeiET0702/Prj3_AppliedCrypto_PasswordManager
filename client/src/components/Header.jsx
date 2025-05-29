@@ -23,7 +23,7 @@ export default function Header() {
                             <span className="user-icon">
                                 <span className="material-icons">person_outline</span>
                             </span>
-                            {user.name}
+                            {user.username}
                         </span>
 
 
