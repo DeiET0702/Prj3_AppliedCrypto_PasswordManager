@@ -1,20 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const cors = require('cors');
-const { test, registerUser, loginUser, getProfile, logoutUser } = require('../controllers/authController');
-const { requireAuth } = require('../helpers/auth');
 
-router.use(
-    cors({
-        credentials: true,
-        origin: 'http://localhost:5173'
-    })
-);
+const {
+    test,
+    registerUser,
+    loginUser,
+    getProfile,
+    logoutUser
+} = require('../controllers/authController');
 
-router.get('/', test);
-router.post('/register', registerUser);
-router.post('/login', loginUser);
-router.get('/profile', getProfile, requireAuth);
-router.post('/logout', logoutUser);
+router.get('/', test); // Basic test route
+router.post('/register', registerUser); // Uses registerUser from authController
+router.post('/login', loginUser);     // Uses loginUser from authController
+router.get('/profile', getProfile);   // Uses getProfile from authController (presumably JWT authenticated)
+router.post('/logout', logoutUser);   // Uses logoutUser from authController
 
 module.exports = router;
