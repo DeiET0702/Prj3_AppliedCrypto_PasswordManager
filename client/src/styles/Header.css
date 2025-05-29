@@ -1,0 +1,97 @@
+/* Container header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  height: 60px;
+  background-color: #1e1e2f;  /* màu nền tối */
+  color: #f5f6fa;             /* màu chữ sáng */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Logo và vùng chứa */
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 42px;
+  width: auto;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: transform 0.2s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+/* Navigation chính */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* Link trong navigation */
+.nav-links a {
+  color: #f5f6fa;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background-color 0.25s ease;
+}
+
+.nav-links a:hover {
+  background-color: #2980b9;
+  color: white;
+}
+
+/* Thông tin người dùng */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ecf0f1;
+  font-weight: 600;
+}
+
+/* Icon user */
+.user-icon {
+  background-color: #2980b9;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+  box-shadow: 0 0 5px rgba(41, 128, 185, 0.6);
+}
+
+/* Nếu bạn có component Logout là nút hoặc link, style chung */
+.nav-links > button,
+.nav-links > .logout-btn {
+  background-color: #e74c3c;
+  border: none;
+  color: white;
+  padding: 6px 14px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.nav-links > button:hover,
+.nav-links > .logout-btn:hover {
+  background-color: #c0392b;
+}
