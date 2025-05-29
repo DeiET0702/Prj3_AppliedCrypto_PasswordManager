@@ -18,7 +18,7 @@ const userSchema = new Schema({
         match: [/.+\@.+\..+/, 'Please fill a valid email address'] // Basic email validation
     },
     hashed_password: {
-        type: Buffer, // For bcrypt hash
+        type: String, // For bcrypt hash
         required: true
     },
     master_salt: {
