@@ -1,18 +1,21 @@
 const express = require('express');
 const router = express.Router();
-
 const {
     test,
     registerUser,
     loginUser,
+    activateMasterKey, 
     getProfile,
     logoutUser
 } = require('../controllers/authController');
 
-router.get('/', test); // Basic test route
-router.post('/register', registerUser); // Uses registerUser from authController
-router.post('/login', loginUser);     // Uses loginUser from authController
-router.get('/profile', getProfile);   // Uses getProfile from authController (presumably JWT authenticated)
-router.post('/logout', logoutUser);   // Uses logoutUser from authController
+
+router.get('/', test);
+router.post('/register', registerUser);
+router.post('/login', loginUser);
+router.post('/activate-master-key', activateMasterKey); 
+router.get('/profile', getProfile);
+router.post('/logout', logoutUser);
+
 
 module.exports = router;
