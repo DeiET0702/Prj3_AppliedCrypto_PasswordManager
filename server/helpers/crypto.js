@@ -1,37 +1,62 @@
 const crypto = require('crypto');
 
-// converts a user's master password + salt into a secure 256-bit key using PBKDF2
-// generate a secure master key(256-bit = 32-byte) from a user's master password + a salt
-// uses the PBKDF2 key derivation function with SHA-256 + 100,000 iterations 
 function deriveMasterKey(masterPassword, salt) {
+  console.log('Deriving masterKey with salt length:', salt.length);
   return crypto.pbkdf2Sync(masterPassword, salt, 100000, 32, 'sha256');
 }
 
-// returns encrypted content, initialization vector (IV), and authentication tag
 function encryptAESGCM(plaintext, key) {
   const iv = crypto.randomBytes(12);
-  const cipher = crypto.createCipheriv('aes-256-gcm', key, iv); // 'aes-256-gcm': AES-GCM algorithm
-  const encrypted = Buffer.concat([
-    cipher.update(Buffer.from(plaintext, 'utf8')),
-    cipher.final()
-  ]);
+  const cipher = crypto.createCipheriv('aes-256-gcm', key, iv);
+  
+  let encrypted = cipher.update(plaintext, 'utf8');
+  encrypted = Buffer.concat([encrypted, cipher.final()]);
+  
   const authTag = cipher.getAuthTag();
   return {
-    ciphertext: encrypted.toString('base64'),
-    iv: iv.toString('base64'),
-    authTag: authTag.toString('base64')
+    ciphertext: encrypted,
+    iv,
+    authTag
   };
 }
 
-function decryptAESGCM(ciphertext, iv, authTag, key) {
+function decryptAESGCM(encryptedData) {
   try {
+    const {
+      ciphertext: ciphertextInput,
+      iv: ivInput,
+      authTag: authTagInput,
+      key: keyInput
+    } = encryptedData;
+
+    // Convert all inputs to Buffer with proper encoding handling
+    const ciphertext = Buffer.isBuffer(ciphertextInput) ? ciphertextInput : Buffer.from(ciphertextInput, 'base64');
+    const iv = Buffer.isBuffer(ivInput) ? ivInput : Buffer.from(ivInput, 'base64');
+    const key = Buffer.isBuffer(keyInput) ? keyInput : Buffer.from(keyInput, 'base64');
+    
+    // Special handling for authTag - it should always be 16 bytes
+    let authTag;
+    if (Buffer.isBuffer(authTagInput)) {
+      authTag = authTagInput;
+    } else {
+      // Handle both base64 and hex encoded authTags
+      const decoded = Buffer.from(authTagInput, authTagInput.length === 32 ? 'hex' : 'base64');
+      authTag = decoded.length === 16 ? decoded : decoded.slice(0, 16);
+    }
+
+    if (authTag.length !== 16) {
+      throw new Error(`Invalid authTag length after processing: ${authTag.length}`);
+    }
+
     const decipher = crypto.createDecipheriv('aes-256-gcm', key, iv);
-    decipher.setAuthTag(Buffer.from(authTag, 'base64')); // authTag phải 16 bytes Buffer
+    decipher.setAuthTag(authTag);
+    
     let decrypted = decipher.update(ciphertext, null, 'utf8');
     decrypted += decipher.final('utf8');
+    
     return decrypted;
-  } catch (e) {
-    console.error('decryptAESGCM error:', e);
+  } catch (error) {
+    console.error('Decryption failed:', error.message);
     return null;
   }
 }

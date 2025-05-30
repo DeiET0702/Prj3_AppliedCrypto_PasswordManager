@@ -1,14 +1,19 @@
-// components/MasterPasswordForm.jsx
 import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../styles/MasterPasswordForm.css';
 
-
 export default function MasterPasswordForm({ user, onUnlockSuccess, onCancel }) {
     const [masterPasswordInput, setMasterPasswordInput] = useState('');
     const navigate = useNavigate();
+
+    // Kiểm tra user trước khi hiển thị form
+    if (!user) {
+        toast.error('No user data available. Please log in again.');
+        navigate('/login');
+        return null;
+    }
 
     const handleActivateMasterKey = async (e) => {
         e.preventDefault();
@@ -18,21 +23,28 @@ export default function MasterPasswordForm({ user, onUnlockSuccess, onCancel }) 
         }
 
         try {
-            const activateRes = await axios.post('/activate-master-key', {
-                masterPassword: masterPasswordInput,
-            });
+            const activateRes = await axios.post(
+                '/activate-master-key',
+                { masterPassword: masterPasswordInput },
+                { withCredentials: true }
+            );
 
             if (activateRes.data.error) {
                 toast.error(activateRes.data.error);
             } else {
                 toast.success(activateRes.data.message || "Vault unlocked!");
                 setMasterPasswordInput('');
-                onUnlockSuccess(); // Notify parent (Login.jsx)
+                onUnlockSuccess();
                 navigate('/dashboard');
             }
         } catch (error) {
-            console.error(error);
-            toast.error("Failed to activate Master Key. Please try again.");
+            const message = error.response?.data?.error || "Failed to activate Master Key.";
+            if (error.response?.status === 401) {
+                toast.error("Session expired. Please log in again.");
+                navigate('/login');
+            } else {
+                toast.error(message);
+            }
         }
     };
 
@@ -40,7 +52,7 @@ export default function MasterPasswordForm({ user, onUnlockSuccess, onCancel }) 
         <div className="master-password-prompt-container">
             <form className="master-password-form" onSubmit={handleActivateMasterKey}>
                 <h2>Unlock Your Vault</h2>
-                <p>Welcome, {user?.username}! Please enter your Master Password.</p>
+                <p>Welcome, {user.username}! Please enter your Master Password.</p>
                 <label htmlFor="masterPassword">Master Password</label>
                 <input
                     type="password"

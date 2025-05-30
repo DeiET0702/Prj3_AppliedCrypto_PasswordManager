@@ -14,8 +14,8 @@ router.use(
 
 // CUD items
 router.post('/create', requireAuth, createItem); // done
-router.put('/:itemId', requireAuth, requireMasterKey, updateItem);
-router.delete('/:itemId', requireAuth, requireMasterKey, deleteItem); // done
+router.put('/:itemId', requireAuth,  updateItem);
+router.delete('/:itemId', requireAuth,  deleteItem); // done
 router.get('/allItems', requireAuth, getAllItems); // test
 
 module.exports = router;
