@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 /* General Container */
+=======
+>>>>>>> test_cud
 .dashboard-container {
   max-width: 1200px;
   margin: 3rem auto;
@@ -9,7 +12,10 @@
   font-family: 'Segoe UI', sans-serif;
 }
 
+<<<<<<< HEAD
 /* Title */
+=======
+>>>>>>> test_cud
 .dashboard-title {
   font-size: 2rem;
   margin-bottom: 1.5rem;
@@ -18,7 +24,10 @@
   text-align: center;
 }
 
+<<<<<<< HEAD
 /* Search + Add */
+=======
+>>>>>>> test_cud
 .dashboard-actions {
   display: flex;
   justify-content: space-between;
@@ -37,7 +46,10 @@
   max-width: 400px;
 }
 
+<<<<<<< HEAD
 /* Add Password Button */
+=======
+>>>>>>> test_cud
 .add-password-btn {
   background-color: #3498db;
   color: white;
@@ -53,7 +65,10 @@
   background-color: #2980b9;
 }
 
+<<<<<<< HEAD
 /* Vault Table */
+=======
+>>>>>>> test_cud
 .vault-table {
   width: 100%;
   border-collapse: collapse;
@@ -81,6 +96,7 @@
   padding: 0.5rem;
   border-radius: 6px;
   font-family: monospace;
+<<<<<<< HEAD
   width: 100%;
 }
 
@@ -88,20 +104,41 @@
 .action-btn {
   margin-right: 0.4rem;
   padding: 0.4rem 0.7rem;
+=======
+  width: 150px;
+  margin-right: 0.5rem;
+}
+
+.action-btn {
+  margin: 0 0.2rem;
+  padding: 0.4rem 0.8rem;
+>>>>>>> test_cud
   border: none;
   border-radius: 6px;
   cursor: pointer;
   font-size: 0.85rem;
+<<<<<<< HEAD
   color: white;
   transition: opacity 0.2s ease-in-out;
+=======
+  transition: background-color 0.2s ease-in-out;
+>>>>>>> test_cud
 }
 
 .action-btn.edit {
   background-color: #f39c12;
+<<<<<<< HEAD
+=======
+  color: white;
+}
+.action-btn.edit:hover {
+  background-color: #e67e22;
+>>>>>>> test_cud
 }
 
 .action-btn.delete {
   background-color: #e74c3c;
+<<<<<<< HEAD
 }
 
 .action-btn.share {
@@ -147,4 +184,26 @@
     font-weight: bold;
     color: #666;
   }
+=======
+  color: white;
+}
+.action-btn.delete:hover {
+  background-color: #c0392b;
+}
+
+.action-btn.share {
+  background-color: #2ecc71;
+  color: white;
+}
+.action-btn.share:hover {
+  background-color: #27ae60;
+}
+
+.loading,
+.not-logged-in {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+  color: #888;
+>>>>>>> test_cud
 }

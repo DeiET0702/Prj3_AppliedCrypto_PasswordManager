@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // In your item routes file (e.g., routes/itemRoutes.js)
 const express = require('express');
 const router = express.Router();
@@ -128,5 +129,26 @@ router.post('/item/share/:itemID', requireMasterKey, (req, res) => { /* ...  ini
 
 // When Receiver (e.g., Bob) accepts, he'll provide his masterPassword, derive his masterKey, and then use it. 
 router.post('/item/share/accept/:shareId', requireMasterKey, (req, res) => { /* Bob accepts, uses his req.masterKey */});
+=======
+const express = require('express');
+const router = express.Router();
+const cors = require('cors');
+const { createItem, updateItem, deleteItem, getAllItems } = require('../controllers/itemController');
+const { requireAuth } = require('../helpers/auth');
+const { requireMasterKey } = require('../middleware/authMiddleware');
+
+router.use(
+    cors({
+        credentials: true,
+        origin: 'http://localhost:5173'
+    })
+);
+
+// CUD items
+router.post('/create', requireAuth, createItem); // done
+router.put('/:itemId', requireAuth,  updateItem);
+router.delete('/:itemId', requireAuth,  deleteItem); // done
+router.get('/allItems', requireAuth, getAllItems); // test
+>>>>>>> test_cud
 
 module.exports = router;

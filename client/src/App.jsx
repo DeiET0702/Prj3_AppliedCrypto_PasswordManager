@@ -25,7 +25,11 @@ function App() {
       <Header />
       <Toaster position='bottom-right' toastOptions={{ duration: 2000 }} />
         <Routes>
+<<<<<<< HEAD
           <Route path="/" element={<Dashboard />} />
+=======
+          <Route path="/" element={<Login />} />
+>>>>>>> test_cud
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} /> 

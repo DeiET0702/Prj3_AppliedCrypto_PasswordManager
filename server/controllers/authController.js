@@ -12,7 +12,11 @@ const MASTER_KEY_SESSION_DURATION = 60 * 60 * 1000; // 1 hour
 
 // --- Helper Function for PBKDF2 ---
 function deriveMasterKey(masterPassword, salt) {
+<<<<<<< HEAD
     const saltBuffer = Buffer.isBuffer(salt) ? salt : Buffer.from(salt, 'hex');
+=======
+    const saltBuffer = Buffer.isBuffer(salt) ? salt : Buffer.from(salt, 'base64');
+>>>>>>> test_cud
     return crypto.pbkdf2Sync(
         masterPassword,
         saltBuffer,
@@ -163,7 +167,11 @@ const activateMasterKey = async (req, res) => {
         const masterKeyBuffer = deriveMasterKey(masterPassword, user.master_salt);
 
         // Store derived Master Key in session
+<<<<<<< HEAD
         req.session.masterKey = masterKeyBuffer.toString('hex');
+=======
+        req.session.masterKey = masterKeyBuffer.toString('base64');
+>>>>>>> test_cud
         req.session.masterKeyExpiresAt = Date.now() + MASTER_KEY_SESSION_DURATION;
         // req.session.userId is already set from loginUser
 
@@ -227,6 +235,20 @@ const logoutUser = (req, res) => {
     }
 };
 
+<<<<<<< HEAD
+=======
+const getAllUsers = async(req, res) => {
+    try{
+        const user = await User.find();
+        res.json(user);
+        console.log(user);
+    }catch(error){
+        console.error("Error fetching all users:", error);
+        return res.status(500).json({error: "Internal Server Error"});
+    }
+}
+
+>>>>>>> test_cud
 module.exports = {
     test,
     registerUser,
@@ -234,4 +256,8 @@ module.exports = {
     activateMasterKey, 
     getProfile,
     logoutUser,
+<<<<<<< HEAD
+=======
+    getAllUsers
+>>>>>>> test_cud
 };

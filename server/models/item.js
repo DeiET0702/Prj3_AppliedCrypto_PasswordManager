@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const ItemSchema = new Schema({
+<<<<<<< HEAD
     owner_id: { type: Schema.Types.ObjectId, ref: 'User', required: true }, // Foreign key to User
     ciphertext: { type: Buffer, required: true },      // Encrypted {domain, username, password}
     iv: { type: Buffer, required: true },              // IV for ciphertext
@@ -17,6 +18,17 @@ const ItemSchema = new Schema({
 ItemSchema.pre('save', function(next) {
     this.updated_at = Date.now();
     next();
+=======
+    owner_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    ciphertext: { type: String, required: true }, // Stored as base64
+    iv: { type: String, required: true }, // Stored as base64
+    authTag: { type: String, required: true }, // Now stored as hex
+    key_iv: { type: String, required: true }, // Stored as base64
+    encrypted_siteKey: { type: String, required: true }, // Stored as base64
+    encrypted_siteKeyAuthTag: { type: String, required: true } // Now stored as hex
+}, {
+    timestamps: true // Sử dụng timestamps thay cho created_at/updated_at thủ công
+>>>>>>> test_cud
 });
 
 module.exports = mongoose.model('Item', ItemSchema);

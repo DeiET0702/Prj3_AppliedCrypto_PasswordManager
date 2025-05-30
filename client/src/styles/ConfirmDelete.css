@@ -1,0 +1,55 @@
+/* Confirm Delete SweetAlert2 Styles - theo phong cách logout button */
+.confirm-delete-popup {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 12px !important;
+  padding: 30px !important;
+}
+
+.confirm-delete-title {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  color: #333 !important;
+  margin-bottom: 12px !important;
+  text-align: center;
+}
+
+.confirm-delete-content {
+  font-size: 1.1rem !important;
+  color: #555 !important;
+  margin-bottom: 20px !important;
+  text-align: center;
+}
+
+.confirm-delete-confirm-button {
+  background-color: #ff6f61 !important; /* đỏ cam */
+  color: white !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 10px 24px !important;
+  font-weight: 700 !important;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 3px 8px rgba(255, 111, 97, 0.6) !important;
+  transition: background-color 0.3s ease !important;
+  cursor: pointer;
+  margin: 0 8px;
+}
+.confirm-delete-confirm-button:hover {
+  background-color: #e85c4f !important;
+}
+
+.confirm-delete-cancel-button {
+  background-color: #4caf50 !important; /* xanh lá */
+  color: white !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 10px 24px !important;
+  font-weight: 700 !important;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 3px 8px rgba(76, 175, 80, 0.6) !important;
+  transition: background-color 0.3s ease !important;
+  cursor: pointer;
+  margin: 0 8px;
+}
+.confirm-delete-cancel-button:hover {
+  background-color: #388e3c !important;
+}
