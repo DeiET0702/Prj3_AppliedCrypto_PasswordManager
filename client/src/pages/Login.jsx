@@ -9,7 +9,7 @@ import MasterPasswordForm from '../components/MasterPasswordForm';
 export default function Login() {
     const navigate = useNavigate();
     const { user, setUser, setIsVaultUnlocked } = useContext(UserContext);
-    const [data, setData] = useState({ email: '', password: '' });
+    const [data, setData] = useState({ username: '', password: '' });
     const [showMasterPasswordPrompt, setShowMasterPasswordPrompt] = useState(false);
 
     useEffect(() => {
@@ -28,7 +28,7 @@ export default function Login() {
                 const profileRes = await axios.get('/profile', { withCredentials: true });
                 setUser(profileRes.data);
                 toast.success("Login successful! Please enter your Master Password.");
-                setData({ email: '', password: '' });
+                setData({ username: '', password: '' });
                 setShowMasterPasswordPrompt(true);
             }
         } catch (error) {
@@ -73,13 +73,13 @@ export default function Login() {
         <div className="login-container">
             <form className="login-form" onSubmit={handleLogin}>
                 <h2>Login</h2>
-                <label htmlFor="email">Email</label>
+                <label htmlFor="username">username</label>
                 <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={data.email}
-                    onChange={(e) => setData({ ...data, email: e.target.value })}
+                    type="username"
+                    id="username"
+                    name="username"
+                    value={data.username}
+                    onChange={(e) => setData({ ...data, username: e.target.value })}
                     required
                 />
                 <label htmlFor="password">Password</label>

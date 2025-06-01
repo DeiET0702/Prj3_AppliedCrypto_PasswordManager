@@ -1,0 +1,125 @@
+/* styles/SharesList.css */
+.shares-list-container {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+.shares-list-container h4 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5rem;
+}
+
+.shares-list-info {
+  color: #555;
+  text-align: center;
+  padding: 1rem;
+}
+
+.shares-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.share-item {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.share-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex-grow: 1;
+}
+
+.share-item-info span {
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.share-item-info strong {
+  color: #222;
+}
+
+.share-item-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: 1rem; /* For spacing when not wrapping */
+}
+
+.share-item-actions .action-btn {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.action-btn.accept {
+  background-color: #28a745;
+  color: white;
+  border-color: #28a745;
+}
+.action-btn.accept:hover {
+  background-color: #218838;
+}
+
+.action-btn.reject,
+.action-btn.revoke {
+  background-color: #dc3545;
+  color: white;
+  border-color: #dc3545;
+}
+.action-btn.reject:hover,
+.action-btn.revoke:hover {
+  background-color: #c82333;
+}
+
+.action-btn.provide-data-again {
+  background-color: #ffc107;
+  color: #212529;
+  border-color: #ffc107;
+}
+
+
+.status-badge {
+  padding: 0.2em 0.5em;
+  border-radius: 0.25rem;
+  font-size: 0.8em;
+  text-transform: capitalize;
+  color: #fff;
+}
+.status-accepted { background-color: #28a745; }
+.status-pending_receiver_acceptance, .status-pending_sender_action { background-color: #ffc107; color: #212529; }
+.status-rejected, .status-revoked, .status-expired { background-color: #6c757d; }
+
+
+.shares-table th, .shares-table td {
+  font-size: 0.9em;
+}
+
+@media (max-width: 600px) {
+  .share-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .share-item-actions {
+    margin-left: 0;
+    margin-top: 0.75rem;
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
