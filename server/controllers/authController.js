@@ -76,24 +76,21 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
     try {
         // No masterPassword expected here anymore for the initial login
-        const { email, password: loginPassword } = req.body;
+        const { username, password: loginPassword } = req.body;
 
-        if (!email || !loginPassword) {
-            return res.status(400).json({ error: 'Email and password are required.' });
+        if (!username || !loginPassword) {
+            return res.status(400).json({ error: 'Username and password are required.' });
         }
 
         // authController.js -> loginUser
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ username });
     if (!user) {
-        console.log(`LOGIN ATTEMPT: No user found for email: ${email}`); // Log this
+        console.log(`LOGIN ATTEMPT: No user found for username: ${username}`); // Log this
         return res.status(401).json({ error: 'Invalid credentials.' });
     }
 
     console.log(`LOGIN ATTEMPT: User found: ${user.username}`);
-    console.log(`LOGIN ATTEMPT: Plaintext password from request: "${loginPassword}"`); // The password typed by user
-    console.log(`LOGIN ATTEMPT: Hashed password from DB for ${user.username}: "${user.hashed_password}"`); // The hash stored in DB
-    console.log(`LOGIN ATTEMPT: Type of hashed password from DB: ${typeof user.hashed_password}`); // Should be 'string'
 
     const match = await comparePassword(loginPassword, user.hashed_password);
     console.log(`LOGIN ATTEMPT: bcrypt.compare result (match): ${match}`); // This will be true or false
@@ -105,7 +102,7 @@ const loginUser = async (req, res) => {
 
 
         // Set up JWT for general authentication
-        const payload = { email: user.email, id: user._id.toString(), username: user.username };
+        const payload = { username: user.username, id: user._id.toString(), username: user.username };
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }); 
 
         res.cookie('token', token, {
@@ -121,7 +118,6 @@ const loginUser = async (req, res) => {
         const userResponse = {
             _id: user._id,
             username: user.username,
-            email: user.email,
             message: "Login successful. Please provide master password to unlock your vault."
             // No master_salt sent here
         };
