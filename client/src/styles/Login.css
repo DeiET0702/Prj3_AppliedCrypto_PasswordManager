@@ -1,19 +1,17 @@
-/* Login.css */
-
 .login-container {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+  background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
   padding: 20px;
 }
 
 .login-form {
-  background-color: #fff;
-  padding: 40px 35px;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  background: #fff;
+  padding: 40px 32px 32px 32px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(44, 62, 80, 0.12);
   width: 100%;
   max-width: 400px;
   box-sizing: border-box;
@@ -22,16 +20,18 @@
 
 .login-form h2 {
   margin-bottom: 24px;
-  color: #222;
+  color: #2d3a4b;
   font-weight: 700;
   text-align: center;
+  letter-spacing: 1px;
 }
 
 .login-form label {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   font-weight: 600;
-  color: #555;
+  color: #4a90e2;
+  letter-spacing: 0.5px;
 }
 
 .login-form input[type="text"],
@@ -39,40 +39,52 @@
   width: 100%;
   padding: 12px 14px;
   margin-bottom: 20px;
-  border: 1.8px solid #cbd2d9;
+  border: 1.5px solid #cbd2d9;
   border-radius: 8px;
   font-size: 1rem;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s;
   box-sizing: border-box;
+  background: #f7fafc;
 }
 
 .login-form input[type="text"]:focus,
 .login-form input[type="password"]:focus {
   outline: none;
   border-color: #4a90e2;
-  box-shadow: 0 0 8px rgba(74, 144, 226, 0.4);
+  background: #fff;
+  box-shadow: 0 0 8px rgba(74, 144, 226, 0.15);
 }
 
 .login-form button[type="submit"] {
   width: 100%;
   padding: 14px 0;
-  background-color: #4a90e2;
-  color: white;
+  background: linear-gradient(90deg, #4a90e2 60%, #357abd 100%);
+  color: #fff;
   font-weight: 700;
   border: none;
   border-radius: 10px;
   font-size: 1.1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background 0.3s;
+  margin-top: 8px;
 }
 
 .login-form button[type="submit"]:hover {
-  background-color: #357abd;
+  background: linear-gradient(90deg, #357abd 60%, #4a90e2 100%);
 }
 
-/* Responsive */
+.login-form .login-error {
+  color: #e74c3c;
+  background: #fbeee6;
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-bottom: 16px;
+  text-align: center;
+  font-size: 0.97rem;
+}
+
 @media (max-width: 480px) {
   .login-form {
-    padding: 30px 25px;
+    padding: 28px 12px;
   }
 }

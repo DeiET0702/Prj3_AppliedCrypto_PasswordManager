@@ -121,3 +121,50 @@
   margin-top: 2rem;
   color: #888;
 }
+
+.sharing-center-container {
+  margin: 40px auto 0 auto;
+  max-width: 900px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 24px rgba(44, 62, 80, 0.08);
+  padding: 32px 24px 24px 24px;
+}
+
+.sharing-center-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 18px;
+  color: #357abd;
+  text-align: left;
+}
+
+.sharing-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.sharing-tabs button {
+  background: #e0eafc;
+  border: none;
+  border-radius: 8px 8px 0 0;
+  padding: 10px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #357abd;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.sharing-tabs button.active {
+  background: #357abd;
+  color: #fff;
+}
+
+.sharing-tab-content {
+  background: #f7fafc;
+  border-radius: 0 0 8px 8px;
+  padding: 18px 10px;
+  min-height: 120px;
+}

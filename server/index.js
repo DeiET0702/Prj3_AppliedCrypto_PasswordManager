@@ -43,7 +43,7 @@ app.use(session({
 // --- Routes ---
 app.use('/', require('./routes/authRoute')); // Handles /register, /login, /profile, /logout
 app.use('/api/item', require('./routes/itemRoutes')); // Handles /api/item/create, /api/item/, etc.
-
+app.use('/api/shares', require('./routes/shareRoutes')); 
 // --- Server Listening ---
 const port = 8000;
 app.listen(port, () => {

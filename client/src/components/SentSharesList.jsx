@@ -97,11 +97,10 @@ export default function SentSharesList({ refreshTrigger, onActionCompleted, requ
             <li key={share.shareId} className={`share-item status-${share.status}`}>
               <div className="share-item-info">
                 <span>To: <strong>{share.receiverUsername}</strong></span>
+                <span>Item: <strong>{share.itemDomain}</strong></span>
                 <span>Status: <strong className={`status-badge status-${share.status}`}>{share.status.replace('_', ' ')}</strong></span>
-                <span>Sent: {new Date(share.sharedAt).toLocaleDateString()}</span>
-                {share.expiresAt && (share.status === 'pending_receiver_acceptance' || share.status === 'pending_sender_action') &&
-                  <span>Expires: {new Date(share.expiresAt).toLocaleString()}</span>
-                }
+                <span>Sent: {share.sharedAt ? new Date(share.sharedAt).toLocaleDateString() : ''}</span>
+                {share.expiresAt && <span>Expires: {new Date(share.expiresAt).toLocaleString()}</span>}
                 {share.acceptedAt && <span>Accepted: {new Date(share.acceptedAt).toLocaleString()}</span>}
               </div>
               <div className="share-item-actions">

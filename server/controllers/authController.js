@@ -75,35 +75,25 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
     try {
-        // No masterPassword expected here anymore for the initial login
         const { username, password: loginPassword } = req.body;
 
         if (!username || !loginPassword) {
             return res.status(400).json({ error: 'Username and password are required.' });
         }
 
-        // authController.js -> loginUser
+        const user = await User.findOne({ username });
+        if (!user) {
+            return res.status(401).json({ error: 'Invalid credentials.' });
+        }
 
-    const user = await User.findOne({ username });
-    if (!user) {
-        console.log(`LOGIN ATTEMPT: No user found for username: ${username}`); // Log this
-        return res.status(401).json({ error: 'Invalid credentials.' });
-    }
-
-    console.log(`LOGIN ATTEMPT: User found: ${user.username}`);
-
-    const match = await comparePassword(loginPassword, user.hashed_password);
-    console.log(`LOGIN ATTEMPT: bcrypt.compare result (match): ${match}`); // This will be true or false
-
-    if (!match) {
-        console.log(`LOGIN ATTEMPT: Password mismatch for user ${user.username}.`);
-        return res.status(401).json({ error: 'Invalid credentials.' });
-    }
-
+        const match = await comparePassword(loginPassword, user.hashed_password);
+        if (!match) {
+            return res.status(401).json({ error: 'Invalid credentials.' });
+        }
 
         // Set up JWT for general authentication
-        const payload = { username: user.username, id: user._id.toString(), username: user.username };
-        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }); 
+        const payload = { username: user.username, id: user._id.toString() };
+        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         res.cookie('token', token, {
             httpOnly: true,
@@ -111,17 +101,14 @@ const loginUser = async (req, res) => {
             sameSite: 'strict',
         });
 
-        req.session.userId = user._id.toString(); // For linking to master key activation
+        // Store userId in session for master key activation
+        req.session.userId = user._id.toString();
 
-        console.log(`User ${user.username} logged in. JWT set. Master Key not yet active in session.`);
-
-        const userResponse = {
+        return res.json({
             _id: user._id,
             username: user.username,
             message: "Login successful. Please provide master password to unlock your vault."
-            // No master_salt sent here
-        };
-        return res.json(userResponse);
+        });
 
     } catch (error) {
         console.error("Login Error:", error);

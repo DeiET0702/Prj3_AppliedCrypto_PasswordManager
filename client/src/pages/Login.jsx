@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
@@ -8,15 +8,10 @@ import MasterPasswordForm from '../components/MasterPasswordForm';
 
 export default function Login() {
     const navigate = useNavigate();
-    const { user, setUser, setIsVaultUnlocked } = useContext(UserContext);
+    const { setUser, setIsVaultUnlocked } = useContext(UserContext);
     const [data, setData] = useState({ username: '', password: '' });
     const [showMasterPasswordPrompt, setShowMasterPasswordPrompt] = useState(false);
-
-    useEffect(() => {
-        if (user && !showMasterPasswordPrompt) {
-            setShowMasterPasswordPrompt(true);
-        }
-    }, [user, showMasterPasswordPrompt]);
+    const [loggedInUser, setLoggedInUser] = useState(null);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -25,19 +20,15 @@ export default function Login() {
             if (loginRes.data.error) {
                 toast.error(loginRes.data.error);
             } else {
-                const profileRes = await axios.get('/profile', { withCredentials: true });
-                setUser(profileRes.data);
-                toast.success("Login successful! Please enter your Master Password.");
-                setData({ username: '', password: '' });
+                // Optionally fetch profile if needed
+                setUser(loginRes.data);
+                setLoggedInUser(loginRes.data);
                 setShowMasterPasswordPrompt(true);
+                toast.success("Login successful! Please enter your Master Password.");
             }
         } catch (error) {
             const message = error.response?.data?.error || "Login failed.";
-            if (error.response?.status === 401) {
-                toast.error("Invalid credentials. Please try again.");
-            } else {
-                toast.error(message);
-            }
+            toast.error(message);
         }
     };
 
@@ -47,6 +38,7 @@ export default function Login() {
             setUser(null);
             setIsVaultUnlocked(false);
             setShowMasterPasswordPrompt(false);
+            setLoggedInUser(null);
             toast.success('Logged out successfully.');
             navigate('/login');
         } catch (error) {
@@ -57,12 +49,13 @@ export default function Login() {
     const handleMasterPasswordSuccess = () => {
         setShowMasterPasswordPrompt(false);
         setIsVaultUnlocked(true);
+        navigate('/dashboard');
     };
 
-    if (showMasterPasswordPrompt && user) {
+    if (showMasterPasswordPrompt && loggedInUser) {
         return (
             <MasterPasswordForm
-                user={user}
+                user={loggedInUser}
                 onUnlockSuccess={handleMasterPasswordSuccess}
                 onCancel={handleCancelMasterPassword}
             />
@@ -73,14 +66,15 @@ export default function Login() {
         <div className="login-container">
             <form className="login-form" onSubmit={handleLogin}>
                 <h2>Login</h2>
-                <label htmlFor="username">username</label>
+                <label htmlFor="username">Username</label>
                 <input
-                    type="username"
+                    type="text"
                     id="username"
                     name="username"
                     value={data.username}
                     onChange={(e) => setData({ ...data, username: e.target.value })}
                     required
+                    autoComplete="username"
                 />
                 <label htmlFor="password">Password</label>
                 <input

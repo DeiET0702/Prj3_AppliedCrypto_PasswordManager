@@ -1,5 +1,5 @@
+import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
-import { createContext, useState, useEffect } from 'react';
 
 export const UserContext = createContext({
     user: null,
@@ -15,23 +15,17 @@ export function UserContextProvider({ children }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchUserProfile = async () => {
-            try {
-                const { data } = await axios.get('/profile', { withCredentials: true });
-                setUser(data);
-                // isVaultUnlocked vẫn là false vì cần kích hoạt masterKey
-            } catch (error) {
-                setUser(null);
-                setIsVaultUnlocked(false);
-                if (error.response?.status !== 401) {
-                    console.error('Error fetching profile:', error);
+        // Try to fetch user profile on mount
+        axios.get('/profile', { withCredentials: true })
+            .then(res => {
+                if (res.data && res.data.username) {
+                    setUser(res.data);
+                } else {
+                    setUser(null);
                 }
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchUserProfile();
+            })
+            .catch(() => setUser(null))
+            .finally(() => setLoading(false));
     }, []);
 
     return (

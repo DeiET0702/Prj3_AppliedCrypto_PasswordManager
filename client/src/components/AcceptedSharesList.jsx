@@ -67,9 +67,9 @@ export default function AcceptedSharesList({ refreshTrigger, requestMasterPasswo
           </thead>
           <tbody>
             {acceptedItems.map((item) => (
-              <tr key={item.shareId || item.originalItemId}>
-                <td>{item.domain}</td>
-                <td>{item.username}</td>
+              <tr key={item.shareId}>
+                <td>{item.itemDomain}</td>
+                <td>{item.receiverUsername || 'Unknown'}</td>
                 <td>
                   {item.error ? (
                     <span className="error-text">{item.error}</span>
@@ -96,8 +96,8 @@ export default function AcceptedSharesList({ refreshTrigger, requestMasterPasswo
                     </>
                   )}
                 </td>
-                <td>{item.senderUsername}</td>
-                <td>{new Date(item.acceptedAt).toLocaleString()}</td>
+                <td>{item.senderUsername || 'Unknown'}</td>
+                <td>{item.acceptedAt ? new Date(item.acceptedAt).toLocaleString() : ''}</td>
               </tr>
             ))}
           </tbody>

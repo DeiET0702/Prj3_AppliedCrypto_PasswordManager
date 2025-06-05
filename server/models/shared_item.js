@@ -7,6 +7,13 @@ const sharedItemSchema = new Schema({
         ref: 'Item', // Foreign key to the Item collection
         required: true
     },
+
+    domain: { // Domain of the item being shared
+        type: String,
+        required: true,
+        trim: true
+    },
+    
     sender_username: {
         type: String,
         required: true,

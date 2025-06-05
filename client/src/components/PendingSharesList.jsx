@@ -36,34 +36,37 @@ export default function PendingSharesList({ onActionCompleted, requestMasterPass
 
   const handleAccept = async (shareId) => {
     if (!isVaultUnlocked) {
-      console.log('PendingSharesList: Vault locked, cannot accept');
       toast.error('Please unlock your vault to accept shares.');
       return;
     }
-    console.log('PendingSharesList: Accepting share', shareId);
     setActionLoading(prev => ({ ...prev, [shareId]: true }));
     toast.loading('Accepting share...', { id: `action-${shareId}` });
     try {
-      const res = await requestMasterPassword((masterPassword) => {
-        console.log('PendingSharesList: Sending accept request with master password');
-        return axios.post(
-          `/api/shares/${shareId}/accept`,
-          {},
-          {
-            headers: { 'x-master-key': masterPassword },
-            withCredentials: true
-          }
-        );
-      });
-      if (!res) throw new Error('Master password required to accept share.');
-      console.log('PendingSharesList: Share accepted', res.data);
+      // Try without master password first
+      let res;
+      try {
+        res = await axios.post(`/api/shares/${shareId}/accept`, {}, { withCredentials: true });
+      } catch (error) {
+        if (error.response?.status === 401) {
+          // Prompt for master password and retry
+          const masterPassword = await requestMasterPassword();
+          res = await axios.post(
+            `/api/shares/${shareId}/accept`,
+            {},
+            {
+              headers: { 'x-master-key': masterPassword },
+              withCredentials: true
+            }
+          );
+        } else {
+          throw error;
+        }
+      }
       toast.success('Share accepted successfully!', { id: `action-${shareId}` });
       setPendingShares(prev => prev.filter(s => s.shareId !== shareId));
       if (onActionCompleted) onActionCompleted('accept');
     } catch (error) {
-      console.error('PendingSharesList: Accept error', error);
-      const errorMsg = error.response?.data?.message || "Failed to accept share.";
-      toast.error(errorMsg, { id: `action-${shareId}` });
+      toast.error(error.response?.data?.message || "Failed to accept share.", { id: `action-${shareId}` });
     } finally {
       setActionLoading(prev => ({ ...prev, [shareId]: false }));
     }
@@ -108,7 +111,7 @@ export default function PendingSharesList({ onActionCompleted, requestMasterPass
             <li key={share.shareId} className="share-item">
               <div className="share-item-info">
                 <span>From: <strong>{share.senderUsername}</strong></span>
-                <span>Item: <strong>{share.itemDomain || 'Encrypted Domain'}</strong></span>
+                <span>Item: <strong>{share.itemDomain}</strong></span>
                 <span>Shared: {new Date(share.sharedAt).toLocaleDateString()}</span>
                 {share.expiresAt && <span>Expires: {new Date(share.expiresAt).toLocaleString()}</span>}
               </div>

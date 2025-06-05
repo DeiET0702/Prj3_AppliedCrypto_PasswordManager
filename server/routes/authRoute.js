@@ -16,7 +16,7 @@ router.get('/', test);
 router.post('/register', registerUser);
 router.post('/login', loginUser);
 router.post('/activate-master-key', activateMasterKey); 
-router.get('/profile', getProfile);
+router.get('/profile', requireAuth, getProfile);
 router.post('/logout', logoutUser);
 router.get('/allUsers', requireAuth, getAllUsers);
 
