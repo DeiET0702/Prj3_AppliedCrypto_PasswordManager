@@ -34,7 +34,7 @@ function App() {
         position="bottom-center"
         toastOptions={{
           style: {
-            marginBottom: '120px', // Adjust this value to be higher than your footer
+            marginBottom: '120px', //>footer
             zIndex: 9999
           }
         }}

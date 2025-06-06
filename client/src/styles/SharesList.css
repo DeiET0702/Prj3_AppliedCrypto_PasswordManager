@@ -56,44 +56,40 @@
 
 .share-item-actions {
   display: flex;
-  gap: 0.5rem;
-  margin-left: 1rem; /* For spacing when not wrapping */
+  gap: 12px;
+  margin-top: 8px;
 }
 
 .share-item-actions .action-btn {
-  padding: 0.4rem 0.8rem;
-  font-size: 0.85rem;
-  border-radius: 4px;
+  padding: 6px 18px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
-  border: 1px solid transparent;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.06);
 }
 
-.action-btn.accept {
-  background-color: #28a745;
-  color: white;
-  border-color: #28a745;
-}
-.action-btn.accept:hover {
-  background-color: #218838;
+.accept-btn {
+  background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+  color: #1b3c2e;
 }
 
-.action-btn.reject,
-.action-btn.revoke {
-  background-color: #dc3545;
-  color: white;
-  border-color: #dc3545;
-}
-.action-btn.reject:hover,
-.action-btn.revoke:hover {
-  background-color: #c82333;
+.accept-btn:hover {
+  background: linear-gradient(90deg, #38f9d7 0%, #43e97b 100%);
+  color: #0b1e14;
 }
 
-.action-btn.provide-data-again {
-  background-color: #ffc107;
-  color: #212529;
-  border-color: #ffc107;
+.reject-btn {
+  background: linear-gradient(90deg, #ff5858 0%, #f09819 100%);
+  color: #fff;
 }
 
+.reject-btn:hover {
+  background: linear-gradient(90deg, #f09819 0%, #ff5858 100%);
+  color: #fff;
+}
 
 .status-badge {
   padding: 0.2em 0.5em;

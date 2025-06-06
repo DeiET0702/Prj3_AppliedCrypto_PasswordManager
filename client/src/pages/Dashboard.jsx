@@ -305,7 +305,7 @@ export default function Dashboard() {
           </button>
         </div>
         <div className="sharing-tab-content">
-          {shareTab === 'pending' && <PendingSharesList requestMasterPassword={requestMasterPassword} />}
+          {shareTab === 'pending' && <PendingSharesList username="linh2" />}
           {shareTab === 'accepted' && <AcceptedSharesList requestMasterPassword={requestMasterPassword} />}
           {shareTab === 'sent' && <SentSharesList requestMasterPassword={requestMasterPassword} />}
         </div>
