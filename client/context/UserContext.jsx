@@ -11,7 +11,9 @@ export const UserContext = createContext({
 
 export function UserContextProvider({ children }) {
     const [user, setUser] = useState(null);
-    const [isVaultUnlocked, setIsVaultUnlocked] = useState(false);
+    const [isVaultUnlockedState, setIsVaultUnlockedState] = useState(
+        () => localStorage.getItem('isVaultUnlocked') === 'true'
+    );
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -28,8 +30,13 @@ export function UserContextProvider({ children }) {
             .finally(() => setLoading(false));
     }, []);
 
+    const setIsVaultUnlocked = (val) => {
+        setIsVaultUnlockedState(val);
+        localStorage.setItem('isVaultUnlocked', val);
+    };
+
     return (
-        <UserContext.Provider value={{ user, setUser, isVaultUnlocked, setIsVaultUnlocked, loading }}>
+        <UserContext.Provider value={{ user, setUser, isVaultUnlocked: isVaultUnlockedState, setIsVaultUnlocked, loading }}>
             {children}
         </UserContext.Provider>
     );

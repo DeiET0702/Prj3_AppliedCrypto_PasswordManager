@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import { UserContext } from '../../context/UserContext';
 import '../styles/SharesList.css';
 
-export default function PendingSharesList({ onActionCompleted, requestMasterPassword }) {
+export default function PendingSharesList({ requestMasterPassword }) {
   const { isVaultUnlocked } = useContext(UserContext);
   const [pendingShares, setPendingShares] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -64,7 +64,6 @@ export default function PendingSharesList({ onActionCompleted, requestMasterPass
       }
       toast.success('Share accepted successfully!', { id: `action-${shareId}` });
       setPendingShares(prev => prev.filter(s => s.shareId !== shareId));
-      if (onActionCompleted) onActionCompleted('accept');
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to accept share.", { id: `action-${shareId}` });
     } finally {
@@ -81,7 +80,6 @@ export default function PendingSharesList({ onActionCompleted, requestMasterPass
       console.log('PendingSharesList: Share rejected', res.data);
       toast.success('Share rejected.', { id: `action-${shareId}` });
       setPendingShares(prev => prev.filter(s => s.shareId !== shareId));
-      if (onActionCompleted) onActionCompleted('reject');
     } catch (error) {
       console.error('PendingSharesList: Reject error', error);
       toast.error(error.response?.data?.message || "Failed to reject share.", { id: `action-${shareId}` });
@@ -105,38 +103,34 @@ export default function PendingSharesList({ onActionCompleted, requestMasterPass
   return (
     <div className="shares-list-container pending-shares">
       <h4>Pending Shares (Waiting for Your Action)</h4>
-      {pendingShares.length > 0 ? (
-        <ul className="shares-list">
-          {pendingShares.map((share) => (
-            <li key={share.shareId} className="share-item">
-              <div className="share-item-info">
-                <span>From: <strong>{share.senderUsername}</strong></span>
-                <span>Item: <strong>{share.itemDomain}</strong></span>
-                <span>Shared: {new Date(share.sharedAt).toLocaleDateString()}</span>
-                {share.expiresAt && <span>Expires: {new Date(share.expiresAt).toLocaleString()}</span>}
-              </div>
-              <div className="share-item-actions">
-                <button
-                  onClick={() => handleAccept(share.shareId)}
-                  disabled={actionLoading[share.shareId]}
-                  className="action-btn accept"
-                >
-                  {actionLoading[share.shareId] ? 'Accepting...' : 'Accept'}
-                </button>
-                <button
-                  onClick={() => handleReject(share.shareId)}
-                  disabled={actionLoading[share.shareId]}
-                  className="action-btn reject"
-                >
-                  {actionLoading[share.shareId] ? 'Rejecting...' : 'Reject'}
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No pending shares.</p>
-      )}
+      <ul className="shares-list">
+        {pendingShares.map(share => (
+          <li key={share.shareId} className="share-item">
+            <div className="share-item-info">
+              <span>From: <strong>{share.senderUsername}</strong></span>
+              <span>Item: <strong>{share.itemDomain}</strong></span>
+              <span>Shared: {new Date(share.sharedAt).toLocaleDateString()}</span>
+              {share.expiresAt && <span>Expires: {new Date(share.expiresAt).toLocaleString()}</span>}
+            </div>
+            <div className="share-item-actions">
+              <button
+                onClick={() => handleAccept(share.shareId)}
+                disabled={actionLoading[share.shareId]}
+                className="action-btn accept"
+              >
+                {actionLoading[share.shareId] ? 'Accepting...' : 'Accept'}
+              </button>
+              <button
+                onClick={() => handleReject(share.shareId)}
+                disabled={actionLoading[share.shareId]}
+                className="action-btn reject"
+              >
+                {actionLoading[share.shareId] ? 'Rejecting...' : 'Reject'}
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

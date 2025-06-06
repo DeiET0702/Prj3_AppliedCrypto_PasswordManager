@@ -55,53 +55,14 @@ export default function AcceptedSharesList({ refreshTrigger, requestMasterPasswo
     <div className="shares-list-container accepted-shares">
       <h4>Items Shared With You (Accepted)</h4>
       {acceptedItems.length > 0 ? (
-        <table className="vault-table shares-table">
-          <thead>
-            <tr>
-              <th>Domain</th>
-              <th>Username</th>
-              <th>Password</th>
-              <th>Shared By</th>
-              <th>Accepted At</th>
-            </tr>
-          </thead>
-          <tbody>
-            {acceptedItems.map((item) => (
-              <tr key={item.shareId}>
-                <td>{item.itemDomain}</td>
-                <td>{item.receiverUsername || 'Unknown'}</td>
-                <td>
-                  {item.error ? (
-                    <span className="error-text">{item.error}</span>
-                  ) : (
-                    <>
-                      <input
-                        type={showPassword[item.shareId] ? 'text' : 'password'}
-                        value={item.password || ''}
-                        readOnly
-                        className="password-mask"
-                      />
-                      <button
-                        onClick={() =>
-                          setShowPassword((prev) => ({
-                            ...prev,
-                            [item.shareId]: !prev[item.shareId],
-                          }))
-                        }
-                        className="action-btn"
-                        title={showPassword[item.shareId] ? 'Hide password' : 'Show password'}
-                      >
-                        {showPassword[item.shareId] ? '👁️ Hide' : '👁️ Show'}
-                      </button>
-                    </>
-                  )}
-                </td>
-                <td>{item.senderUsername || 'Unknown'}</td>
-                <td>{item.acceptedAt ? new Date(item.acceptedAt).toLocaleString() : ''}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <ul>
+          {acceptedItems.map(item => (
+            <li key={item.shareId}>
+              <b>Domain:</b> {item.itemDomain} | <b>Shared By:</b> {item.senderUsername} | 
+              <b>Accepted At:</b> {item.acceptedAt ? new Date(item.acceptedAt).toLocaleString() : ''}
+            </li>
+          ))}
+        </ul>
       ) : (
         <p>No items shared with you have been accepted yet.</p>
       )}

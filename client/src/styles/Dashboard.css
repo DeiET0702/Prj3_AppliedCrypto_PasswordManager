@@ -168,3 +168,14 @@
   padding: 18px 10px;
   min-height: 120px;
 }
+
+.toast-container {
+  position: fixed;
+  bottom: 100px; /* Adjust this value to be higher than the footer height */
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}

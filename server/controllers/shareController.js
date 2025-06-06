@@ -6,7 +6,7 @@ const { decryptAESGCM, encryptAESGCM, deriveMasterKey } = require('../helpers/cr
 // Step 1: Initiate share (create a pending share record)
 exports.initiateShare = async (req, res) => {
     try {
-        const { receiverUsername } = req.body;
+        const { receiverUsername, domain } = req.body;
         const { itemId } = req.params;
         const sender = req.user.username;
         const masterKey = req.masterKey;
@@ -29,7 +29,7 @@ exports.initiateShare = async (req, res) => {
             receiver_username: receiverUsername,
             status: 'pending',
             expiration_at: expirationAt,
-            domain: item.domain, // Store domain for reference
+            domain, // <-- use domain from request
         });
         await sharedItem.save();
 

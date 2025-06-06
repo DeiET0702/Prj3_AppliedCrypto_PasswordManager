@@ -41,7 +41,7 @@ export default function SharePasswordForm({ onShareSuccess, onClose, item, reque
       const initiateApi = async (mpw) => {
         return await axios.post(
           `/api/shares/initiate/${item._id}`,
-          { receiverUsername },
+          { receiverUsername, domain: item.domain },
           {
             headers: mpw ? { 'x-master-key': mpw } : {},
             withCredentials: true

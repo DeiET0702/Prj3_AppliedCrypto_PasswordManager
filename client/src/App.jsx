@@ -23,7 +23,6 @@ function App() {
   return (
     <UserContextProvider>
       <Header />
-      <Toaster position='bottom-right' toastOptions={{ duration: 2000 }} />
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -31,6 +30,15 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} /> 
         </Routes>
       <Footer />
+      <Toaster
+        position="bottom-center"
+        toastOptions={{
+          style: {
+            marginBottom: '120px', // Adjust this value to be higher than your footer
+            zIndex: 9999
+          }
+        }}
+      />
     </UserContextProvider>
   )
 }
